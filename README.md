@@ -1,9 +1,9 @@
 # travel_simulator
 
-## up container
+## up container (/)
 docker compose up -d
 
-## start bash para edição de arquivos
+## start bash para edição de arquivos (/)
 docker exec -it simulator bash
 
 ## Start Kafka
