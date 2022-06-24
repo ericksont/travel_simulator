@@ -5,8 +5,7 @@ import (
 	"log"
 
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
-	//kafkaApp "github.com/ericksont/travel_simulator/application/kafka"
-	//routeApp "github.com/ericksont/travel_simulator/application/route"
+	kafkaApp "github.com/ericksont/travel_simulator/application/kafka"
 	"github.com/ericksont/travel_simulator/infra/kafka"
 	"github.com/joho/godotenv"
 )
@@ -20,16 +19,15 @@ func init() {
 
 func main() {
 
-	producer := kafka.NewKafkaProducer()
-	log.Println(producer)
-	kafka.Publish("ola","readtest", producer)
-
 	msgChan := make(chan *ckafka.Message)
 	consumer := kafka.NewKafkaConsumer(msgChan)
 	go consumer.Consume()
 
+	//producer := kafka.NewKafkaProducer()
+	//kafka.Publish("ola","readtest", producer)
+
 	for msg := range msgChan {
 		fmt.Println(string(msg.Value))
-		//go kafkaApp.Produce(msg)
+		go kafkaApp.Produce(msg)
 	}
 }
